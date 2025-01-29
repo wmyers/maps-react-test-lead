@@ -1,6 +1,6 @@
-import { Html, Head, Main, NextScript } from "next/document";
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
+import { Html, Head, Main, NextScript } from 'next/document';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
 
 export default function Document() {
   return (

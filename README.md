@@ -50,7 +50,7 @@ Interest rate: 5.25%
 
 #### Screenshot example
 
-![Example](example.png?raw=true "Example")
+![Example](example.png?raw=true 'Example')
 
 ## Terms and Definitions
 
@@ -117,7 +117,7 @@ Where:
        - Yearly breakdown of payments throughout the mortgage term.
        - Monthly repayments if the interest rate were to increase by 3% (for affordability check).
    - Implement functionality to dynamically fetch the interest rate from the Bank of England's website.
-      - Data Source: `https://www.bankofengland.co.uk/boeapps/iadb/fromshowcolumns.asp?csv.x=yes&Datefrom=18/Jan/2024&Dateto=18/Feb/2024&SeriesCodes=IUMABEDR&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N`
+     - Data Source: `https://www.bankofengland.co.uk/boeapps/iadb/fromshowcolumns.asp?csv.x=yes&Datefrom=18/Jan/2024&Dateto=18/Feb/2024&SeriesCodes=IUMABEDR&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N`
 
 2. **TypeScript**: Utilise TypeScript to its full potential for type safety and improved code quality.
 

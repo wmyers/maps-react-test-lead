@@ -11,7 +11,7 @@ export function calculateMonthlyPayment(
   propertyPrice: number,
   deposit: number,
   annualInterestRate: number,
-  mortgageTermInYears: number
+  mortgageTermInYears: number,
 ): number {
   const adjustedLoanAmount = propertyPrice - deposit;
   const monthlyInterestRate = annualInterestRate / 100 / 12;
