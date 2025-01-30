@@ -1,70 +1,19 @@
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
+import MortgageForm from './ui/Form';
 
-import { formatCurrency } from '../utils/formatCurrency';
+import { formatCurrency } from './lib/utils/formatCurrency';
 
 export default function MortgageCalculator() {
   return (
-    <Container>
+     <Container>
       <title>Mortgage Calculator Test</title>
       <Row className="gap-x-10 pt-3">
         <Col className="border-r" md="auto">
-          <Form>
-            <Form.Label htmlFor="price">Property Price</Form.Label>
-            <InputGroup className="mb-3">
-              <InputGroup.Text>£</InputGroup.Text>
-              <Form.Control
-                id="price"
-                name="price"
-                type="number"
-                className="no-spinner"
-                step="any"
-              />
-            </InputGroup>
-            <Form.Label htmlFor="deposit">Deposit</Form.Label>
-            <InputGroup className="mb-3">
-              <InputGroup.Text>£</InputGroup.Text>
-              <Form.Control
-                id="deposit"
-                name="deposit"
-                type="number"
-                className="no-spinner"
-                step="any"
-              />
-            </InputGroup>
-
-            <Form.Label htmlFor="term">Mortgage Term</Form.Label>
-            <InputGroup className="mb-3">
-              <Form.Control
-                id="term"
-                name="term"
-                type="number"
-                step="any"
-                defaultValue={15}
-              />
-              <InputGroup.Text>years</InputGroup.Text>
-            </InputGroup>
-            <Form.Label htmlFor="interest">Interest rate</Form.Label>
-            <InputGroup className="mb-3">
-              <Form.Control
-                id="interest"
-                name="interest"
-                type="number"
-                step="any"
-                className="no-spinner"
-                defaultValue={5.25}
-              />
-              <InputGroup.Text>%</InputGroup.Text>
-            </InputGroup>
-            <Button className="w-full" variant="primary" type="submit">
-              Calculate
-            </Button>
-          </Form>
+          <MortgageForm />
         </Col>
         <Col md="auto">
           <h2 className="pb-3">Results</h2>
