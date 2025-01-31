@@ -41,7 +41,10 @@ export function calculateMonthlyPayment(
  * @returns The total repayment.
  */
 
-export function calculateTotalRepayment(monthlyPayment: number, mortgageTermInYears: number): number {
+export function calculateTotalRepayment(
+  monthlyPayment: number,
+  mortgageTermInYears: number,
+): number {
   return monthlyPayment * (mortgageTermInYears * 12);
 }
 
@@ -67,13 +70,16 @@ export function calculateCapital(propertyPrice: number, deposit: number): number
  * @returns The whole term interest.
  */
 
-export function calculateWholeTermInterest(totalRepayment: number, capital: number): number {
+export function calculateWholeTermInterest(
+  totalRepayment: number,
+  capital: number,
+): number {
   return totalRepayment - capital;
 }
 
 /**
  * Calculates the affordability check monthly payment
- * 
+ *
  * @param propertyPrice - The price of the property.
  * @param deposit - The deposit amount.
  * @param annualInterestRate - The annual interest rate.
@@ -87,5 +93,10 @@ export function calculateAffordabilityCheckMonthlyPayment(
   annualInterestRate: number,
   mortgageTermInYears: number,
 ): number {
-  return calculateMonthlyPayment(propertyPrice, deposit, annualInterestRate + 3, mortgageTermInYears);
+  return calculateMonthlyPayment(
+    propertyPrice,
+    deposit,
+    annualInterestRate + 3,
+    mortgageTermInYears,
+  );
 }

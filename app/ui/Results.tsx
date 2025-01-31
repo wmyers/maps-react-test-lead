@@ -1,8 +1,8 @@
-import { Table } from "react-bootstrap";
-import { formatCurrency } from "../lib/utils/formatCurrency";
-import { ComponentProps } from "../lib/definitions";
+import { Table } from 'react-bootstrap';
+import { formatCurrency } from '../lib/utils/formatCurrency';
+import { ComponentProps } from '../lib/definitions';
 
-export default function Results({searchParams}: ComponentProps) { 
+export default function Results({ searchParams }: ComponentProps) {
   // validate search params, if missing search params then render message to require search params
   // if no interest rate then use the boe rate
 
