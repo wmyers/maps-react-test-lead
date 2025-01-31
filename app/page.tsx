@@ -7,6 +7,7 @@ import YearlyBreakdown from './ui/YearlyBreakdown';
 
 import { FormInput } from './lib/definitions';
 import { getBankRate } from './lib/data/boe';
+import { validateAndParseInputValues } from './lib/validation/inputValues';
 
 export default async function MortgageCalculator(props: {
   searchParams?: Promise<FormInput>;
@@ -23,6 +24,9 @@ export default async function MortgageCalculator(props: {
     interest: searchParams?.interest || boeRate.toString(), // always use boe rate as default
   };
 
+  // validate input values
+  const { error, success } = validateAndParseInputValues(values);
+
   return (
     <Container>
       <title>Mortgage Calculator Test</title>
@@ -30,12 +34,26 @@ export default async function MortgageCalculator(props: {
         <Col className="border-r" md="auto">
           <MortgageForm boeRate={boeRate} inputValues={values} />
         </Col>
-        <Col md="auto">
-          <Results boeRate={boeRate} inputValues={values} />
-        </Col>
-        <Col md="auto">
-          <YearlyBreakdown />
-        </Col>
+        {error && (
+          <Col md="auto" className="alert alert-danger">
+            <h2>Invalid form values</h2>
+            <ul>
+              {error.issues.map((issue, index) => (
+                <li key={index}>{issue.message}</li>
+              ))}
+            </ul>
+          </Col>
+        )}
+        {success && (
+          <>
+            <Col md="auto">
+              <Results boeRate={boeRate} inputValues={values} />
+            </Col>
+            <Col md="auto">
+              <YearlyBreakdown />
+            </Col>
+          </>
+        )}
       </Row>
     </Container>
   );

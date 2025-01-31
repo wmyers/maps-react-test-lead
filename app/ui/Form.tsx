@@ -4,7 +4,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import InputGroupText from 'react-bootstrap/InputGroupText';
 import { ComponentProps } from '../lib/definitions';
 
-export default function MortgageForm({ boeRate, inputValues }: ComponentProps) {
+export default function MortgageForm({ inputValues }: ComponentProps) {
   const { price, deposit, term, interest } = inputValues || {};
 
   return (

@@ -6,6 +6,6 @@ export type FormInput = {
 };
 
 export type ComponentProps = {
-  boeRate: number;
+  boeRate?: number;
   inputValues?: FormInput;
 };
