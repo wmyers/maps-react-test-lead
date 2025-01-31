@@ -4,10 +4,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import InputGroupText from 'react-bootstrap/InputGroupText';
 import { ComponentProps } from '../lib/definitions';
 
-export default function MortgageForm({ boeRate, searchParams }: ComponentProps) {
-  // apply any search params to form fields
-  const { price, deposit, term, interest } = searchParams || {};
-  // if no interest rate then use the boe rate
+export default function MortgageForm({ boeRate, inputValues }: ComponentProps) {
+  const { price, deposit, term, interest } = inputValues || {};
 
   return (
     <Form>
@@ -43,7 +41,7 @@ export default function MortgageForm({ boeRate, searchParams }: ComponentProps) 
           name="term"
           type="number"
           step="any"
-          defaultValue={term || 15}
+          defaultValue={term}
         />
         <InputGroupText>years</InputGroupText>
       </InputGroup>
@@ -55,7 +53,7 @@ export default function MortgageForm({ boeRate, searchParams }: ComponentProps) 
           type="number"
           step="any"
           className="no-spinner"
-          defaultValue={interest || boeRate}
+          defaultValue={interest}
         />
         <InputGroupText>%</InputGroupText>
       </InputGroup>

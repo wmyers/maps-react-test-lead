@@ -1,9 +1,26 @@
 import { Table } from 'react-bootstrap';
 import { formatCurrency } from '../lib/utils/formatCurrency';
 import { ComponentProps } from '../lib/definitions';
+import { validateAndParseInputValues } from '../lib/validation/inputValues';
 
-export default function Results({ searchParams }: ComponentProps) {
-  // validate search params, if missing search params then render message to require search params
+export default function Results({ inputValues }: ComponentProps) {
+  // validate search params
+  const result = validateAndParseInputValues(inputValues);
+  if (!result.success) {
+    return (
+      <div className="alert alert-danger">
+        <h2>Invalid form values</h2>
+        <ul>
+          {result.error.issues.map((issue, index) => (
+            <li key={index}>{issue.message}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
+  // const { price, deposit, term, interest } = searchParams || {};
+
   // if no interest rate then use the boe rate
 
   // use search param values to calculate mortgage fields

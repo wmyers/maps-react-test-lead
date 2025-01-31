@@ -16,15 +16,22 @@ export default async function MortgageCalculator(props: {
 
   // console.log('searchParams', searchParams);
 
+  const values: FormInput = {
+    price: searchParams?.price ?? '200000', // default to £200,000 if nullish search param
+    deposit: searchParams?.deposit ?? '10000', // default to £10,000 if nullish search param
+    term: searchParams?.term ?? '25', // default to 25 years if nullish search param
+    interest: searchParams?.interest || boeRate.toString(), // always use boe rate as default
+  };
+
   return (
     <Container>
       <title>Mortgage Calculator Test</title>
       <Row className="gap-x-10 pt-3">
         <Col className="border-r" md="auto">
-          <MortgageForm boeRate={boeRate} searchParams={searchParams} />
+          <MortgageForm boeRate={boeRate} inputValues={values} />
         </Col>
         <Col md="auto">
-          <Results boeRate={boeRate} searchParams={searchParams} />
+          <Results boeRate={boeRate} inputValues={values} />
         </Col>
         <Col md="auto">
           <YearlyBreakdown />
