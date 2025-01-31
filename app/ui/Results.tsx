@@ -1,7 +1,12 @@
 import { Table } from "react-bootstrap";
 import { formatCurrency } from "../lib/utils/formatCurrency";
+import { ComponentProps } from "../lib/definitions";
 
-export default function Results() { 
+export default function Results({searchParams}: ComponentProps) { 
+  // validate search params, if missing search params then render message to require search params
+  // if no interest rate then use the boe rate
+
+  // use search param values to calculate mortgage fields
   return (
     <>
       <h2 className="pb-3">Results</h2>
