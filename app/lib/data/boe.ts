@@ -4,8 +4,9 @@ import { cache } from './cache';
 const CACHE_KEY = 'BOE_INTEREST_RATE';
 
 export async function getBankRate(): Promise<number> {
-  // fetching boe rate seems to be flakey at certain times of day? So defaulting to 4.75 just in case
-  let rate = 4.75;
+  // Fetching BoE rate seems to be flakey at certain times of the year (see note below about 31st Dec 2024)
+  // So defaulting to 5.0 just in case
+  let rate = 5.0;
   try {
     // Try to get the rate from cache first
     const cachedRate = cache.get<number>(CACHE_KEY);
@@ -14,7 +15,10 @@ export async function getBankRate(): Promise<number> {
     }
 
     const now = Date.now();
-    const then = now - 1000 * 60 * 60 * 24 * 31; // at least one month ago - otherwise it doesn't work!
+    // use 31st Dec 2024 as a start date for the range of column values of BoE interest rates
+    // this date definitely has the most recent rate attached to it (at the time of writing)
+    // setting a range any sooner can lead to no columns being sent by the asp endpoint
+    const then = new Date('31 Dec 2024 00:00:01 GMT').valueOf();
     const [, now_month, now_date, now_year] = new Date(now).toDateString().split(' ');
     const [, then_month, then_date, then_year] = new Date(then).toDateString().split(' ');
 
@@ -22,6 +26,7 @@ export async function getBankRate(): Promise<number> {
     // NB possibly this asp endpoint doesn't like the URL encoding that axios applies to separately defined params...
     // so defining this as a url string:
     const url = `https://www.bankofengland.co.uk/boeapps/iadb/fromshowcolumns.asp?csv.x=yes&Datefrom=${then_date}/${then_month}/${then_year}&Dateto=${now_date}/${now_month}/${now_year}&SeriesCodes=IUMABEDR&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N`;
+    console.log('url', url);
     const response = await axios.get(url);
 
     // Split the CSV response into lines

@@ -78,7 +78,7 @@ Date,Value
 
     const rate = await getBankRate();
 
-    expect(rate).toBe(4.75);
+    expect(rate).toBe(5.0);
   });
 
   it('should handle malformed CSV response', async () => {
@@ -97,6 +97,6 @@ Date,Value
 
     const rate = await getBankRate();
 
-    expect(rate).toBe(4.75);
+    expect(rate).toBe(5.0);
   });
 });
