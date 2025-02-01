@@ -19,6 +19,8 @@ export async function getBankRate(): Promise<number> {
     // this date definitely has the most recent rate attached to it (at the time of writing)
     // setting a range any sooner can lead to no columns being sent by the asp endpoint
     const then = new Date('31 Dec 2024 00:00:01 GMT').valueOf();
+    // const then = now - 1000 * 60 * 60 * 24 * 31; // at least one month ago
+
     const [, now_month, now_date, now_year] = new Date(now).toDateString().split(' ');
     const [, then_month, then_date, then_year] = new Date(then).toDateString().split(' ');
 
