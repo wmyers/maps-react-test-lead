@@ -76,7 +76,9 @@ Date,Value
       ),
     );
 
-    await expect(getBankRate()).rejects.toThrow();
+    const rate = await getBankRate();
+
+    expect(rate).toBe(4.75);
   });
 
   it('should handle malformed CSV response', async () => {
@@ -93,6 +95,8 @@ Date,Value
       ),
     );
 
-    await expect(getBankRate()).rejects.toThrow();
+    const rate = await getBankRate();
+
+    expect(rate).toBe(4.75);
   });
 });

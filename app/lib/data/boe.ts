@@ -4,6 +4,8 @@ import { cache } from './cache';
 const CACHE_KEY = 'BOE_INTEREST_RATE';
 
 export async function getBankRate(): Promise<number> {
+  // fetching boe rate seems to be flakey at certain times of day? So defaulting to 4.75 just in case
+  let rate = 4.75;
   try {
     // Try to get the rate from cache first
     const cachedRate = cache.get<number>(CACHE_KEY);
@@ -21,22 +23,6 @@ export async function getBankRate(): Promise<number> {
     // so defining this as a url string:
     const url = `https://www.bankofengland.co.uk/boeapps/iadb/fromshowcolumns.asp?csv.x=yes&Datefrom=${then_date}/${then_month}/${then_year}&Dateto=${now_date}/${now_month}/${now_year}&SeriesCodes=IUMABEDR&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N`;
     const response = await axios.get(url);
-    // rather thans as:
-    // const response = await axios.get(
-    //   'https://www.bankofengland.co.uk/boeapps/iadb/fromshowcolumns.asp',
-    //   {
-    //     params: {
-    //       'csv.x': 'yes',
-    //       Datefrom: `${then_date}/${then_month}/${then_year}`,
-    //       Dateto: `${now_date}/${now_month}/${now_year}`,
-    //       SeriesCodes: 'IUMABEDR',
-    //       CSVF: 'TN',
-    //       UsingCodes: 'Y',
-    //       VPD: 'Y',
-    //       VFD: 'N'
-    //     }
-    //   }
-    // );
 
     // Split the CSV response into lines
     const lines = response.data.split('\n');
@@ -45,19 +31,19 @@ export async function getBankRate(): Promise<number> {
     const dataLine = lines.filter((line: string) => line.trim()).pop();
 
     // Extract the rate from the last column
-    const rate = parseFloat(dataLine.split(',')[1]);
+    const extractedRate = parseFloat(dataLine.split(',')[1]);
+
+    // check for NaN values and any other falsy values derived from wonky data
+    if (!extractedRate) {
+      throw new Error(`ERROR extracted BOE rate is ${extractedRate}`);
+    }
+
+    rate = extractedRate;
 
     // Store in cache
     cache.set(CACHE_KEY, rate);
-
-    // check for NaN values and any other falsy values derived from wonky data
-    if (!rate) {
-      throw new Error(`ERROR rate is ${rate}`);
-    }
-
-    return rate;
   } catch (error) {
-    // console.error('Error fetching Bank of England rate:', error);
-    throw error;
+    console.error('Error fetching Bank of England rate:', error);
   }
+  return rate;
 }
