@@ -4,10 +4,10 @@ import type { ComponentProps, FormInput } from '../definitions';
 // Base schema for FormInput
 const inputValuesSchema = z
   .object({
-    price: z.string().optional(),
-    deposit: z.string().optional(),
-    term: z.string().optional(),
-    interest: z.string().optional(),
+    price: z.string(),
+    deposit: z.string(),
+    term: z.string(),
+    interest: z.string(),
   })
   .strict() satisfies z.ZodType<FormInput>;
 
