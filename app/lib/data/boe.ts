@@ -52,7 +52,11 @@ export async function getBankRate(): Promise<number> {
     // Store in cache
     cache.set(CACHE_KEY, rate);
   } catch (error) {
-    console.error('Error fetching Bank of England rate:', error);
+    // https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    console.error('Error fetching Bank of England rate:', message);
   }
   return rate;
 }
