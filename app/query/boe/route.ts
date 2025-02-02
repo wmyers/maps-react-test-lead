@@ -1,4 +1,4 @@
-import { getBankRate } from '@/app/lib/data/boe';
+import { getBankRate } from '../../lib/data/boe';
 
 export async function GET() {
   try {

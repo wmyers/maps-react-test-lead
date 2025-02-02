@@ -7,6 +7,7 @@ pnpm dev
 ```
 
 app: http://localhost:3001
+
 boe rate: http://localhost:3001/query/boe
 
 ## Notes on this solution (works with JS disabled for accessibility)
@@ -15,6 +16,8 @@ boe rate: http://localhost:3001/query/boe
  - `next` , `react` and `react-dom` packages have been upgraded to the latest stable versions. `pnpm` has been used (rather than `npm`) for package management.
  - `pages/index.tsx` has been moved to `app/page.tsx`
  - still using `react-bootstrap` components as provided in the boilerplate
+ - uses `zod` for validation, coercion and parsing of input
+ - uses `jest`, `react-testing-library`, `msw-node` for unit/integration tests
  - the app is stateless as form input state is kept purely in `searchParams` or if there are no `searchParams` then default values are used
  - the `deposit` field is optional in the same way as the live tool (for remortaging)
  - _all_ rendering is server-side so there is no implementation of React Hooks
