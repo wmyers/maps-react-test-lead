@@ -152,7 +152,7 @@ export function calculateYearlyBalances(
       (monthlyPayment * (Math.pow(1 + monthlyInterestRate, paymentsCompleted) - 1)) /
         monthlyInterestRate;
 
-    // Round to 0 decimal places
+    // Round to 2 decimal places
     return Math.round(balance * 100) / 100;
   });
 }
