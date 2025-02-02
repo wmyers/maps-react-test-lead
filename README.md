@@ -6,6 +6,9 @@ pnpm i
 pnpm dev
 ```
 
+app: http://localhost:3001
+boe rate: http://localhost:3001/query/boe
+
 ## Notes on this solution (works with JS disabled for accessibility)
 
  - uses NextJS `app router` instead of `pages router` to automatically opt in to SSR (server-side rendering)
