@@ -21,7 +21,7 @@ export default function YearlyBreakdown({ values }: { values: ParsedInput }) {
           {yearlyBalances.map((balance, index) => (
             <tr key={index}>
               <td>{index}</td>
-              <td>{formatCurrency(balance, 0)}</td>
+              <td>{formatCurrency(Math.abs(balance), 0)}</td>
             </tr>
           ))}
         </tbody>
