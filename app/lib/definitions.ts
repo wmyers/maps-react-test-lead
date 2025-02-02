@@ -5,7 +5,9 @@ export type FormInput = {
   interest: string;
 };
 
-export type ComponentProps = {
-  boeRate?: number;
-  inputValues: FormInput;
+export type FormValues = {
+  price: number;
+  deposit: number;
+  term: number;
+  interest: number;
 };
