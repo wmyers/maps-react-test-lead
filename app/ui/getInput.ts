@@ -1,7 +1,7 @@
 import { getBankRate } from '../lib/data/boe';
-import { FormInput } from '../lib/definitions';
+import { SearchParams, FormInput } from '../lib/definitions';
 
-export async function getInput(searchParams: FormInput): Promise<FormInput> {
+export async function getInput(searchParams: SearchParams): Promise<FormInput> {
   const boeRate = await getBankRate();
 
   // string inputs from search params

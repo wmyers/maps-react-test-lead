@@ -5,13 +5,13 @@ import MortgageForm from './ui/Form';
 import Results from './ui/Results';
 import YearlyBreakdown from './ui/YearlyBreakdown';
 
-import { FormInput } from './lib/definitions';
+import { SearchParams, FormInput } from './lib/definitions';
 
 import { validateAndParseInput } from './lib/validation/inputValues';
 import { getInput } from './ui/getInput';
 
 export default async function MortgageCalculatorUI(props: {
-  searchParams: Promise<FormInput>;
+  searchParams: Promise<SearchParams>;
 }) {
   const searchParams = await props.searchParams;
   const input = await getInput(searchParams);

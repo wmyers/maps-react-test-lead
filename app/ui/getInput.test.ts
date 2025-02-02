@@ -19,7 +19,7 @@ describe('getInput', () => {
       price: '400000',
       deposit: '80000',
       term: '30',
-      interest: '3.5',
+      interest: '3.5', // ignores bank rate if a different rate is inputted
     };
 
     const result = await getInput(searchParams);
@@ -27,7 +27,7 @@ describe('getInput', () => {
     expect(result).toEqual(searchParams);
   });
 
-  it('should use default values when search params are empty', async () => {
+  it('should use default values when search params are nullish', async () => {
     (getBankRate as jest.Mock).mockResolvedValue(4.5);
 
     const result = await getInput({});
@@ -40,7 +40,7 @@ describe('getInput', () => {
     });
   });
 
-  it('should use BOE rate when interest is not provided', async () => {
+  it('should use BOE rate when interest is falsy', async () => {
     (getBankRate as jest.Mock).mockResolvedValue(4.5);
 
     const searchParams = {
