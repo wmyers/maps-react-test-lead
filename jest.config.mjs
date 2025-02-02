@@ -7,7 +7,7 @@ const createJestConfig = jestConfig({
 /** @type {import ("jest").Config} */
 const config = {
   collectCoverage: false,
-  testEnvironment: 'jsdom',
+  testEnvironment: 'node',
 };
 
 export default createJestConfig(config);
