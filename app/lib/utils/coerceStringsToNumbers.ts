@@ -1,19 +1,31 @@
-export default function coerceStringsToNumbers(strings: Record<string, string>) {
+import { FormInput, FormValues } from './../definitions';
+
+export function isFormInputKey(key: string): key is keyof FormInput {
+  return ['price', 'deposit', 'term', 'interest'].includes(key);
+}
+
+export default function coerceInputStringsToNumericValues(input: FormInput): FormValues {
   try {
-    const numbers = Object.keys(strings).reduce(
-      (numbers, key) => {
-        numbers[key] = Number(strings[key]);
-        return numbers;
-      },
-      {} as Record<string, number>,
-    );
-    const values = Object.values(numbers);
-    if (values.length === 0 || values.some((num) => !!num === false)) {
+    const entries = Object.keys(input).filter(isFormInputKey);
+
+    const values = entries.reduce<FormValues>((acc, key) => {
+      acc[key] = Number(input[key]);
+      return acc;
+    }, {} as FormValues);
+
+    const numbers = Object.values(values);
+
+    if (
+      numbers.length === 0 ||
+      numbers.some(
+        (num) => Number.isNaN(num) || !!num === false || typeof num !== 'number',
+      )
+    ) {
       throw new Error(
-        'Invalid string values to coerce to numbers in coerceStringsToNumbers',
+        'Invalid string to coerce to number in coerceInputStringsToNumericValues',
       );
     }
-    return numbers;
+    return values;
   } catch (e) {
     throw e;
   }
