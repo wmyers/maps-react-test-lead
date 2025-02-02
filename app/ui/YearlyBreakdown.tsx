@@ -1,9 +1,9 @@
 import { Table } from 'react-bootstrap';
 import { formatCurrency } from '../lib/utils/formatCurrency';
 import { calculateYearlyBalances } from '../lib/utils/MortgageCalculator/calculateRepayment';
-import { FormValues } from '../lib/definitions';
+import { ParsedInput } from '../lib/validation/inputValues';
 
-export default function YearlyBreakdown({ values }: { values: FormValues }) {
+export default function YearlyBreakdown({ values }: { values: ParsedInput }) {
   const { price, deposit, term, interest } = values;
 
   const yearlyBalances = calculateYearlyBalances(price, deposit, interest, term);

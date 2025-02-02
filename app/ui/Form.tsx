@@ -21,7 +21,7 @@ export default function MortgageForm({ input }: { input: FormInput }) {
           defaultValue={price}
         />
       </InputGroup>
-      <Form.Label htmlFor="deposit">Deposit</Form.Label>
+      <Form.Label htmlFor="deposit">Deposit (optional)</Form.Label>
       <InputGroup className="mb-3">
         <InputGroupText>£</InputGroupText>
         <Form.Control

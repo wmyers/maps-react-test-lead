@@ -1,6 +1,6 @@
 import { Table } from 'react-bootstrap';
 import { formatCurrency } from '../lib/utils/formatCurrency';
-import { FormValues } from '../lib/definitions';
+import { ParsedInput } from '../lib/validation/inputValues';
 import {
   calculateAffordabilityCheckMonthlyPayment,
   calculateCapital,
@@ -9,7 +9,7 @@ import {
   calculateWholeTermInterest,
 } from '../lib/utils/MortgageCalculator/calculateRepayment';
 
-export default function Results({ values }: { values: FormValues }) {
+export default function Results({ values }: { values: ParsedInput }) {
   const { price, deposit, term, interest } = values;
 
   const monthlyPayment = calculateMonthlyPayment(price, deposit, interest, term);
