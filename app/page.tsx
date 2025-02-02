@@ -15,12 +15,17 @@ export default async function MortgageCalculator(props: {
   const searchParams = await props.searchParams;
   const boeRate = await getBankRate();
 
-  // string inputs from search params or defaults
+  // string inputs from search params
   const input: FormInput = {
-    price: searchParams?.price ?? '100000', // default to £100,000 if nullish search param
-    deposit: searchParams?.deposit ?? '5000', // default to £5,000 if nullish search param
-    term: searchParams?.term ?? '15', // default to 15 years if nullish search param
-    interest: searchParams?.interest || boeRate.toString(), // always use boe rate as default
+    // default price to £100,000 if nullish search param
+    price: searchParams?.price ?? '100000',
+    // default deposit to £5,000 if nullish search param
+    // NB this param is still optionally defaulting to 0 when parsed by zod
+    deposit: searchParams?.deposit ?? '5000',
+    // default term to 15 years if nullish search param
+    term: searchParams?.term ?? '15',
+    // always use boe rate as default
+    interest: searchParams?.interest || boeRate.toString(),
   };
 
   return (
