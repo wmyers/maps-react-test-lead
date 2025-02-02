@@ -6,7 +6,7 @@ const CACHE_KEY = 'BOE_INTEREST_RATE';
 export async function getBankRate(): Promise<number> {
   // Fetching BoE rate seems to be flakey at certain times of the year (see note below about 31st Dec 2024)
   // So defaulting to 5.0 just in case
-  let rate = 5.0;
+  let rate = 4.75;
   try {
     // Try to get the rate from cache first
     const cachedRate = cache.get<number>(CACHE_KEY);
@@ -28,8 +28,9 @@ export async function getBankRate(): Promise<number> {
     // NB possibly this asp endpoint doesn't like the URL encoding that axios applies to separately defined params...
     // so defining this as a url string:
     const url = `https://www.bankofengland.co.uk/boeapps/iadb/fromshowcolumns.asp?csv.x=yes&Datefrom=${then_date}/${then_month}/${then_year}&Dateto=${now_date}/${now_month}/${now_year}&SeriesCodes=IUMABEDR&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N`;
-    console.log('url', url);
-    const response = await axios.get(url);
+    // setting timeout of 500ms to not block the ui at the start
+    // NB we can't use React.Suspense to handle a longer load time as that doesn't work when JS is disabled
+    const response = await axios.get(url, { timeout: 500 });
 
     // Split the CSV response into lines
     const lines = response.data.split('\n');
