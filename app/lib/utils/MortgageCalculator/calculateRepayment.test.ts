@@ -30,8 +30,8 @@ describe('calculateWholeTermInterest', () => {
 
 describe('calculateMonthlyPayment', () => {
   it('should calculate monthly payment correctly with interest', () => {
-    const payment = calculateMonthlyPayment(300000, 60000, 3.5, 25);
-    expect(payment).toBeCloseTo(1197.98, 2);
+    const payment = calculateMonthlyPayment(300000, 60000, 3.5, 30);
+    expect(payment).toBeCloseTo(1077.71, 2);
   });
 
   it('should calculate monthly payment correctly with zero interest', () => {
