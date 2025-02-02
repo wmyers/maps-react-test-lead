@@ -4,7 +4,7 @@
 
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
-import { getBankRate } from './boe';
+import { getBankRate, FALLBACK_RATE } from './boe';
 import { cache } from './cache';
 
 // Mock the cache
@@ -78,7 +78,7 @@ Date,Value
 
     const rate = await getBankRate();
 
-    expect(rate).toBe(5.0);
+    expect(rate).toBe(FALLBACK_RATE);
   });
 
   it('should handle malformed CSV response', async () => {
@@ -97,6 +97,6 @@ Date,Value
 
     const rate = await getBankRate();
 
-    expect(rate).toBe(5.0);
+    expect(rate).toBe(FALLBACK_RATE);
   });
 });

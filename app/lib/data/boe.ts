@@ -2,11 +2,12 @@ import axios from 'axios';
 import { cache } from './cache';
 
 const CACHE_KEY = 'BOE_INTEREST_RATE';
+export const FALLBACK_RATE = 4.75; // if all else fails...
 
 export async function getBankRate(): Promise<number> {
   // Fetching BoE rate seems to be flakey at certain times of the year (see note below about 31st Dec 2024)
   // So defaulting to 5.0 just in case
-  let rate = 4.75;
+  let rate = FALLBACK_RATE;
   try {
     // Try to get the rate from cache first
     const cachedRate = cache.get<number>(CACHE_KEY);
