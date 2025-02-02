@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import type { ComponentProps, FormInput } from '../definitions';
+import type { FormInput } from '../definitions';
 
 // Base schema for FormInput
-const inputValuesSchema = z
+const inputSchema = z
   .object({
     price: z.string(),
     deposit: z.string(),
@@ -12,7 +12,7 @@ const inputValuesSchema = z
   .strict() satisfies z.ZodType<FormInput>;
 
 // Validation schema for parsed values
-export const parsedInputValuesSchema = z
+export const parsedInputSchema = z
   .object({
     price: z.coerce
       .number()
@@ -30,8 +30,7 @@ export const parsedInputValuesSchema = z
     interest: z.coerce
       .number()
       .min(0, 'Interest rate cannot be negative')
-      .max(25, 'Interest rate cannot exceed 25% (we hope)')
-      .optional(),
+      .max(25, 'Interest rate cannot exceed 25% (we hope)'),
   })
   .refine(
     ({ deposit, price }) => deposit / price >= 0.05,
@@ -43,16 +42,15 @@ export const parsedInputValuesSchema = z
   );
 
 // Type for the parsed and validated search params
-export type ParsedInputValues = z.infer<typeof parsedInputValuesSchema>;
+export type ParsedInput = z.infer<typeof parsedInputSchema>;
 
 // helper function
-export function validateAndParseInputValues(inputValues: ComponentProps['inputValues']) {
-  const rawResult = inputValuesSchema.safeParse(inputValues);
+export function validateAndParseInput(input: FormInput) {
+  const rawResult = inputSchema.safeParse(input);
   if (!rawResult.success) {
     return { success: false, error: rawResult.error };
   }
-
-  return parsedInputValuesSchema.safeParse({
+  return parsedInputSchema.safeParse({
     price: rawResult.data.price,
     deposit: rawResult.data.deposit,
     term: rawResult.data.term,
