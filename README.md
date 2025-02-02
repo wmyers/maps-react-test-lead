@@ -22,7 +22,7 @@ BoE rate: http://localhost:3001/query/boe
  - The `deposit` field is optional in the same way as the live tool (for remortaging).
  - As all rendering is server-side, there is no implementation of React Hooks.
  - Similarly, (in order to support disabled JS) there is no use of `React.Suspense`.
- - The root UI component is `async` in order to request the BoE interest rate. This potential render blocking is mitigated by setting the request timeout to 500ms and then defaulting to `4.75` if the request times out. If the BoE endpoint successfully returns a response within 500ms then this is cached for 12 hours in an in-memory cache.
+ - The root UI component is `async` in order to request the BoE interest rate. This potential render blocking is mitigated by setting the request timeout to 1000ms (which should be enough) and then defaulting to `4.75` if the request still times out. If the BoE endpoint successfully returns a response within 1000ms then this is cached for 12 hours in an in-memory cache.
 
 
 

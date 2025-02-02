@@ -29,9 +29,9 @@ export async function getBankRate(): Promise<number> {
     // NB possibly this asp endpoint doesn't like the URL encoding that axios applies to separately defined params...
     // so defining this as a url string:
     const url = `https://www.bankofengland.co.uk/boeapps/iadb/fromshowcolumns.asp?csv.x=yes&Datefrom=${then_date}/${then_month}/${then_year}&Dateto=${now_date}/${now_month}/${now_year}&SeriesCodes=IUMABEDR&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N`;
-    // setting timeout of 500ms to not block the ui at the start
+    // setting timeout of 1000ms to not block the ui at the start
     // NB we can't use React.Suspense to handle a longer load time as that doesn't work when JS is disabled
-    const response = await axios.get(url, { timeout: 500 });
+    const response = await axios.get(url, { timeout: 1000 });
 
     // Split the CSV response into lines
     const lines = response.data.split('\n');
