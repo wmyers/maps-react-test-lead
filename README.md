@@ -1,4 +1,4 @@
-Run:
+Run using `pnpm`:
 
 ```
 npm i pnpm
@@ -6,23 +6,23 @@ pnpm i
 pnpm dev
 ```
 
-app: http://localhost:3001
+App: http://localhost:3001
 
-boe rate: http://localhost:3001/query/boe
+BoE rate: http://localhost:3001/query/boe
 
 ## Notes on this solution (works with JS disabled for accessibility)
 
- - uses NextJS `app router` instead of `pages router` to automatically opt in to SSR (server-side rendering)
+ - Uses NextJS `app router` instead of `pages router` to automatically opt in to SSR (server-side rendering).
  - `next` , `react` and `react-dom` packages have been upgraded to the latest stable versions. `pnpm` has been used (rather than `npm`) for package management.
  - `pages/index.tsx` has been moved to `app/page.tsx`
- - still using `react-bootstrap` components as provided in the boilerplate
- - uses `zod` for validation, coercion and parsing of input
- - uses `jest`, `react-testing-library`, `msw-node` for unit/integration tests
- - the app is stateless as form input state is kept purely in `searchParams` or if there are no `searchParams` then default values are used
- - the `deposit` field is optional in the same way as the live tool (for remortaging)
- - _all_ rendering is server-side so there is no implementation of React Hooks
- - similarly (in order to support disabled JS) there is no use of `React.Suspense`
- - the root UI component is `async` in order to request the BoE interest rate. This potential render blocking is mitigated by setting the request timeout to 500ms and then defaulting to `4.75` if the request times out. If the BoE endpoint successfully returns a response within 500ms then this is cached for 12 hours in an in-memory cache
+ - Still using `react-bootstrap` components as provided in the boilerplate.
+ - Uses `zod` for validation, coercion and parsing of input.
+ - Uses `jest`, `react-testing-library`, `msw-node` for unit/integration tests.
+ - The app is stateless as form input state is kept purely in `searchParams` or if there are no `searchParams` then default values are used.
+ - The `deposit` field is optional in the same way as the live tool (for remortaging).
+ - As all rendering is server-side, there is no implementation of React Hooks.
+ - Similarly, (in order to support disabled JS) there is no use of `React.Suspense`.
+ - The root UI component is `async` in order to request the BoE interest rate. This potential render blocking is mitigated by setting the request timeout to 500ms and then defaulting to `4.75` if the request times out. If the BoE endpoint successfully returns a response within 500ms then this is cached for 12 hours in an in-memory cache.
 
 
 
