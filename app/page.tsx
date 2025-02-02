@@ -7,7 +7,7 @@ import YearlyBreakdown from './ui/YearlyBreakdown';
 
 import { FormInput } from './lib/definitions';
 import { getBankRate } from './lib/data/boe';
-import { validateAndParseInputValues } from './lib/validation/inputValues';
+import { validateAndParseInput } from './lib/validation/inputValues';
 
 export default async function MortgageCalculator(props: {
   searchParams?: Promise<FormInput>;
@@ -15,46 +15,49 @@ export default async function MortgageCalculator(props: {
   const searchParams = await props.searchParams;
   const boeRate = await getBankRate();
 
-  // console.log('searchParams', searchParams);
-
-  const values: FormInput = {
-    price: searchParams?.price ?? '200000', // default to £200,000 if nullish search param
-    deposit: searchParams?.deposit ?? '10000', // default to £10,000 if nullish search param
-    term: searchParams?.term ?? '25', // default to 25 years if nullish search param
+  // string inputs from search params or defaults
+  const input: FormInput = {
+    price: searchParams?.price ?? '100000', // default to £100,000 if nullish search param
+    deposit: searchParams?.deposit ?? '5000', // default to £5,000 if nullish search param
+    term: searchParams?.term ?? '15', // default to 15 years if nullish search param
     interest: searchParams?.interest || boeRate.toString(), // always use boe rate as default
   };
-
-  // validate input values
-  const { error, success } = validateAndParseInputValues(values);
 
   return (
     <Container>
       <title>Mortgage Calculator Test</title>
       <Row className="gap-x-10 pt-3">
         <Col className="border-r" md="auto">
-          <MortgageForm boeRate={boeRate} inputValues={values} />
+          <MortgageForm input={input} />
         </Col>
-        {error && (
-          <Col md="auto" className="alert alert-danger">
-            <h2>Invalid form values</h2>
-            <ul>
-              {error.issues.map((issue, index) => (
-                <li key={index}>{issue.message}</li>
-              ))}
-            </ul>
-          </Col>
-        )}
-        {success && (
-          <>
-            <Col md="auto">
-              <Results boeRate={boeRate} inputValues={values} />
-            </Col>
-            <Col md="auto">
-              <YearlyBreakdown />
-            </Col>
-          </>
-        )}
+        {<Calculations input={input} />}
       </Row>
     </Container>
+  );
+}
+
+export function Calculations({ input }: { input: FormInput }) {
+  const result = validateAndParseInput(input);
+  if (result.error) {
+    return (
+      <Col md="auto" className="alert alert-danger">
+        <h2>Invalid form values</h2>
+        <ul>
+          {result.error.issues.map((issue, index) => (
+            <li key={index}>{issue.message}</li>
+          ))}
+        </ul>
+      </Col>
+    );
+  }
+  return (
+    <>
+      <Col md="auto">
+        <Results values={result.data} />
+      </Col>
+      <Col md="auto">
+        <YearlyBreakdown values={result.data} />
+      </Col>
+    </>
   );
 }

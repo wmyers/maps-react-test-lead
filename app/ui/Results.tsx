@@ -1,6 +1,6 @@
 import { Table } from 'react-bootstrap';
 import { formatCurrency } from '../lib/utils/formatCurrency';
-import { ComponentProps } from '../lib/definitions';
+import { FormValues } from '../lib/definitions';
 import {
   calculateAffordabilityCheckMonthlyPayment,
   calculateCapital,
@@ -8,10 +8,9 @@ import {
   calculateTotalRepayment,
   calculateWholeTermInterest,
 } from '../lib/utils/MortgageCalculator/calculateRepayment';
-import coerceStringsToNumbers from '../lib/utils/coerceStringsToNumbers';
 
-export default function Results({ inputValues }: ComponentProps) {
-  const { price, deposit, term, interest } = coerceStringsToNumbers(inputValues);
+export default function Results({ values }: { values: FormValues }) {
+  const { price, deposit, term, interest } = values;
 
   const monthlyPayment = calculateMonthlyPayment(price, deposit, interest, term);
   const totalRepayment = calculateTotalRepayment(monthlyPayment, term);

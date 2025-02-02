@@ -1,7 +1,12 @@
 import { Table } from 'react-bootstrap';
 import { formatCurrency } from '../lib/utils/formatCurrency';
+import { calculateYearlyBalances } from '../lib/utils/MortgageCalculator/calculateRepayment';
+import { FormValues } from '../lib/definitions';
 
-export default function YearlyBreakdown() {
+export default function YearlyBreakdown({ values }: { values: FormValues }) {
+  const { price, deposit, term, interest } = values;
+
+  const yearlyBalances = calculateYearlyBalances(price, deposit, interest, term);
   return (
     <>
       <h2 className="pb-3">Yearly Breakdown</h2>
@@ -13,10 +18,12 @@ export default function YearlyBreakdown() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>{formatCurrency(10000)}</td>
-          </tr>
+          {yearlyBalances.map((balance, index) => (
+            <tr key={index}>
+              <td>{index}</td>
+              <td>{formatCurrency(balance, 0)}</td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </>

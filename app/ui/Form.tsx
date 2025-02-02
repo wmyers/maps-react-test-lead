@@ -2,10 +2,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import InputGroupText from 'react-bootstrap/InputGroupText';
-import { ComponentProps } from '../lib/definitions';
+import { FormInput } from '../lib/definitions';
 
-export default function MortgageForm({ inputValues }: ComponentProps) {
-  const { price, deposit, term, interest } = inputValues || {};
+export default function MortgageForm({ input }: { input: FormInput }) {
+  const { price, deposit, term, interest } = input || {};
 
   return (
     <Form>
