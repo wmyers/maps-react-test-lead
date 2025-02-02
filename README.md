@@ -1,3 +1,11 @@
+Run:
+
+```
+npm i pnpm
+pnpm i
+pnpm dev
+```
+
 ## Notes on this solution (works with JS disabled for accessibility)
 
  - uses NextJS `app router` instead of `pages router` to automatically opt in to SSR (server-side rendering)
