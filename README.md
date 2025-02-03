@@ -1,7 +1,7 @@
 Run using `pnpm`:
 
 ```
-npm i pnpm
+npm i -g pnpm
 pnpm i
 pnpm dev
 ```
