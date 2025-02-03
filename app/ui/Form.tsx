@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import InputGroupText from 'react-bootstrap/InputGroupText';
 import { FormInput } from '../lib/definitions';
+import React from 'react';
 
 export default function MortgageForm({ input }: { input: FormInput }) {
   const { price, deposit, term, interest } = input || {};

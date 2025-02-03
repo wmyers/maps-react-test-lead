@@ -8,6 +8,7 @@ import {
   calculateTotalRepayment,
   calculateWholeTermInterest,
 } from '../lib/utils/MortgageCalculator/calculateRepayment';
+import React from 'react';
 
 export default function Results({ values }: { values: ParsedInput }) {
   const { price, deposit, term, interest } = values;

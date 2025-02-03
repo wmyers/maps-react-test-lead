@@ -2,6 +2,7 @@ import { Table } from 'react-bootstrap';
 import { formatCurrency } from '../lib/utils/formatCurrency';
 import { calculateYearlyBalances } from '../lib/utils/MortgageCalculator/calculateRepayment';
 import { ParsedInput } from '../lib/validation/inputValues';
+import React from 'react';
 
 export default function YearlyBreakdown({ values }: { values: ParsedInput }) {
   const { price, deposit, term, interest } = values;
