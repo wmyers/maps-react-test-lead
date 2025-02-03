@@ -4,11 +4,12 @@
 
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { Calculations } from '../page';
+import { Calculations } from './Calculations';
 import MortgageForm from './Form';
 import Results from './Results';
 import YearlyBreakdown from './YearlyBreakdown';
 import { FormInput } from '../lib/definitions';
+import React from 'react';
 
 const mockInput: FormInput = {
   price: '300000',
