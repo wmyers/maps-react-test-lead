@@ -43,7 +43,7 @@ export async function getBankRate(): Promise<number> {
     const extractedRate = parseFloat(dataLine.split(',')[1]);
 
     // check for NaN values and any other falsy values derived from wonky data
-    if (!extractedRate) {
+    if (isNaN(extractedRate)) {
       throw new Error(`ERROR extracted BOE rate is ${extractedRate}`);
     }
 
